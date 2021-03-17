@@ -1,8 +1,33 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class ReverseStringTest {
+	
+	static ReverseString alice;
+	static String rsAlice;
+	
+	@BeforeAll
+	public static void setUpReverseAlice() throws FileNotFoundException {
+		//setup Alice in wonderland txt
+		File aliceTxt = new File("C:\\Users\\bradb\\Documents\\Projects\\test\\txt-files\\alicewonder.txt");
+		alice = new ReverseString(aliceTxt);
+		
+		//Reversed alice in wonderland using String function from string-functions.com/reverse.aspx
+		File aliceReversed = new File("C:\\Users\\bradb\\Documents\\Projects\\test\\txt-files\\alicereverse(stringfunctions.com).txt");
+		Scanner sc = new Scanner(aliceReversed);
+		rsAlice = "";
+		while(sc.hasNext()) {
+			rsAlice += sc.nextLine();
+		}
+		sc.close();
+	}
+	
 
 	@Test
 	public void testDefaultConstructor() {
@@ -49,13 +74,13 @@ public class ReverseStringTest {
 	}
 
 	@Test
-	public void reverseStringBigTest() {
-		//use alice in wonderland txt
+	public void reverseStringBigTest() throws FileNotFoundException {
+		assertEquals(rsAlice, alice.reverseString(alice.getStr()));
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	
+	@Test
+	public void secondReverseStringBigTest() {
+		assertEquals(rsAlice, alice.reverseString2(alice.getStr()));
 	}
 
 }
